@@ -79,6 +79,9 @@ class ReferExpressionDataset(Dataset):
 
         self.max_region_num = max_region_num
 
+        if not os.path.exists(os.path.join(dataroot, "cache")):
+            os.makedirs(os.path.join(dataroot, "cache"))
+
         cache_path = os.path.join(dataroot, "cache", task + '_' + split + '_' + str(max_seq_length)+ "_" + str(max_region_num) + '.pkl')
         if not os.path.exists(cache_path):
             self.tokenize()

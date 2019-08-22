@@ -3,6 +3,10 @@
 Code and pre-trained models for **ViLBERT: Pretraining Task-Agnostic VisiolinguisticRepresentations for Vision-and-Language Tasks**.
 
 
+
+*Note: This is beta release which * 
+
+
 ## Repository Setup
 
 1. Create a fresh conda environment, and install all dependencies.
@@ -42,6 +46,69 @@ Check `README.md` under `data` for more details.
 |ViLBERT 6-Layer| RefCOCO+ |[Link]()|
 |ViLBERT 6-Layer| Image Retrieval |[Link]()|
 
+### Zero-Shot Image Retrieval
+
+We can directly use the Pre-trained ViLBERT model for zero-shot image retrieval tasks on Flickr30k. 
+
+1: Download the pretrained model with objective `Conceptual Caption` and put it under `save`
+
+2: Update `featyres_h5path1` and `val_annotations_jsonpath` in  `vlbert_task.yml` to load the Flickr30k testset image feature and jsonfile (defualt is training feature). 
+
+3: Use the following command to evaluate pre-trained 6 layer ViLBERT model. (only support single GPU for evaluation now):
+
+```bash
+python eval_retrieval.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect/pytorch_model_9.bin --config_file config/bert_base_6layer_6conect.json --task 3 --split test --batch_size 1 --zero_shot
+```
+
+### Image Retrieval
+
+1: Download the pretrained model with objective `Image Retrieval` and put it under `save`
+
+2: Update `featyres_h5path1` and `val_annotations_jsonpath` in  `vlbert_task.yml` to load the Flickr30k testset image feature and jsonfile (defualt is training feature). 
+
+3: Use the following command to evaluate pre-trained 6 layer ViLBERT model. (only support single GPU for evaluation now):
+
+```bash
+python eval_retrieval.py --bert_model bert-base-uncased --from_pretrained save/RetrievalFlickr30k_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 3 --split test --batch_size 1
+```
+
+### VQA
+
+1: Download the pretrained model with objective `VQA` and put it under `save`
+
+2: To test on held out validation split, use the following command: 
+
+```
+
+```
+
+### VCR
+
+1: Download the pretrained model with objective `VCR` and put it under `save`
+
+2: To test on VCR Q->A
+
+```
+
+```
+
+3: To test on VCR QA->R
+
+```
+
+```
+
+### RefCOCO+
+
+1: Download the pretrained model with objective `RefCOCO+` and put it under `save`
+
+2: We use the Pre-computed detections/masks from [MAttNet](https://github.com/lichengunc/MAttNet) for fully-automatic comprehension task, Check the MAttNet repository for more details. 
+
+3: To test on the RefCOCO+ val set and use the following command:
+
+```bash
+python eval_tasks.py --bert_model bert-base-uncased --from_pretrained save/refcoco+_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 4
+```
 
 ## Visiolinguistic Pre-training
 
@@ -52,21 +119,11 @@ Once you extracted all the image features, to train the model:
 ```
 
 train the model in a distributed setting:
-```
 
 ```
 
-### Zero-Shot Image Retrieval
-
-We can directly use the Pre-trained ViLBERT model for zero-shot image retrieval tasks on Flickr30k. 
-
-First, update `featyres_h5path1` and `val_annotations_jsonpath` in  `vlbert_task.yml` to load the Flickr30k testset image feature and jsonfile (defualt is training feature). 
-
-Then, use the following command to evaluate pre-trained 6 layer ViLBERT model. (only support single GPU for evaluation now):
-
-```bash
-python eval_retrieval.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect/pytorch_model_9.bin --config_file config/bert_base_6layer_6conect.json --task 3 --split test --batch_size 1 --zero_shot
 ```
+
 
 
 ## TASKS

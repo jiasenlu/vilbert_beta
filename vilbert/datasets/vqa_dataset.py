@@ -100,8 +100,8 @@ class VQAClassificationDataset(Dataset):
     ):
         super().__init__()
         self.split = split
-        ans2label_path = os.path.join('data', task, "cache", "trainval_ans2label.pkl")
-        label2ans_path = os.path.join('data', task, "cache", "trainval_label2ans.pkl")
+        ans2label_path = os.path.join(dataroot, "cache", "trainval_ans2label.pkl")
+        label2ans_path = os.path.join(dataroot, "cache", "trainval_label2ans.pkl")
         self.ans2label = cPickle.load(open(ans2label_path, "rb"))
         self.label2ans = cPickle.load(open(label2ans_path, "rb"))
         self.num_labels = len(self.ans2label)
@@ -110,7 +110,11 @@ class VQAClassificationDataset(Dataset):
         self._image_features_reader = image_features_reader
         self._tokenizer = tokenizer
         self._padding_index = padding_index
-        cache_path = os.path.join('data', task, "cache", task + '_' + split + '_' + str(max_seq_length)+'.pkl')
+        
+        if not os.path.exists(os.path.join(dataroot, "cache")):
+            os.makedirs(os.path.join(dataroot, "cache"))
+
+        cache_path = os.path.join(dataroot, "cache", task + '_' + split + '_' + str(max_seq_length)+'.pkl')
         if not os.path.exists(cache_path):
             self.entries = _load_dataset(dataroot, split)
             self.tokenize(max_seq_length)
