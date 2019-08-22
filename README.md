@@ -146,10 +146,21 @@ python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 t
 python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 4e-5 --num_workers 9 --tasks 11 --save_name pretrained
 ```
 
-### Add your own tasks
-```
+## References
+
+If you find this code is useful for your research, please cite our paper
 
 ```
+@article{lu2019vilbert,
+  title={ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks},
+  author={Lu, Jiasen and Batra, Dhruv and Parikh, Devi and Lee, Stefan},
+  journal={arXiv preprint arXiv:1908.02265},
+  year={2019}
+}
+```
+
+
+
 ## Why does ViLBERT look like <img src="fig/vilbert_trim.png" width="45">? 
 
 <p align="center">
