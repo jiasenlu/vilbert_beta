@@ -13,7 +13,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""BERT finetuning runner."""
 
 import argparse
 import json
@@ -42,7 +41,6 @@ from pytorch_pretrained_bert import BertModel
 from vilbert.datasets import ConceptCapLoaderTrain, ConceptCapLoaderVal
 from vilbert.basebert import BertForMultiModalPreTraining
 from pytorch_pretrained_bert.modeling import BertConfig
-import pdb
 
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",

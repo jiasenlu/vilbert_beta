@@ -1,9 +1,8 @@
 # ViLBERT <img src="fig/vilbert_trim.png" width="45">
 
-Code and pre-trained models for **ViLBERT: Pretraining Task-Agnostic VisiolinguisticRepresentations for Vision-and-Language Tasks**.
+Code and pre-trained models for **[ViLBERT: Pretraining Task-Agnostic VisiolinguisticRepresentations for Vision-and-Language Tasks](https://arxiv.org/abs/1908.02265)**.
 
-*Note: This code base is still in beta release.* 
-
+<span style="color:blue"> *Note: This codebase is still in beta release to replicate the paper's preformance. * </span>
 
 ## Repository Setup
 
@@ -25,7 +24,7 @@ conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 3. Install apx, follows https://github.com/NVIDIA/apex
 ## Data Setup
 
-Check `README.md` under `data` for more details.  
+Check `README.md` under `data` for more details.  Check  `vlbert_tasks.yml` for more details. 
 
 
 ## Pre-trained model for Evaluation
@@ -37,6 +36,8 @@ Check `README.md` under `data` for more details.
 |ViLBERT 6-Layer| VCR |[Link]()|
 |ViLBERT 6-Layer| RefCOCO+ |[Link]()|
 |ViLBERT 6-Layer| Image Retrieval |[Link]()|
+
+## Evaluation
 
 ### Zero-Shot Image Retrieval
 
@@ -104,47 +105,44 @@ python eval_tasks.py --bert_model bert-base-uncased --from_pretrained save/refco
 
 ## Visiolinguistic Pre-training
 
-Once you extracted all the image features, to train the model: 
+Once you extracted all the image features, to train a 6-layer ViLBERT model on conceptual caption:
 
+```bash
+python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_concap.py --from_pretrained bert-base-uncased --bert_model bert-base-uncased --conf
+ig_file config/bert_base_6layer_6conect.json --learning_rate 1e-4 --train_batch_size 512 --save_name pretrained
 ```
 
-```
-
-train the model in a distributed setting:
-
-```
-
-```
-
-
-
-## TASKS
+## Training Down-Stream Tasks
 
 ### VQA 
 
-To fintune a 6-layer ViLBERT model for VQA with 8 GPU. `--tasks 1` means VQA tasks. Check `vlbert_tasks.yml` for more settings for VQA tasks.  
+To fintune a 6-layer ViLBERT model for VQA with 8 GPU. `--tasks 0` means VQA tasks. Check `vlbert_tasks.yml` for more settings for VQA tasks.  
 
 ```bash
-python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 4e-5 --num_workers 16 --tasks 1 --save_name pretrained
+python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 4e-5 --num_workers 16 --tasks 0 --save_name pretrained
 ```
 
 ### VCR
 
-Similarly, to finetune a 6-layer vilbert model for VCR task, run the following commands. Here we joint train `Q->A ` and `QA->R` tasks, so the tasks is specified as `--tasks 6-7`
+Similarly, to finetune a 6-layer vilbert model for VCR task, run the following commands. Here we joint train `Q->A ` and `QA->R` tasks, so the tasks is specified as `--tasks 1-2`
 
-```
-python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 2e-5 --num_workers 16 --tasks 6-7 --save_name pretrained
-```
-
-### Refer Expression
-```
-python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 4e-5 --num_workers 16 --tasks 11 --save_name pretrained
+```bash
+python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 2e-5 --num_workers 16 --tasks 1-2 --save_name pretrained
 ```
 
 ### Image Retrieval
+
 ```bash
-python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 4e-5 --num_workers 9 --tasks 11 --save_name pretrained
+python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 4e-5 --num_workers 9 --tasks 3 --save_name pretrained
 ```
+
+### Refer Expression
+
+```bash
+python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 train_tasks.py --bert_model bert-base-uncased --from_pretrained save/bert_base_6_layer_6_connect_freeze_0/pytorch_model_8.bin  --config_file config/bert_base_6layer_6conect.json  --learning_rate 4e-5 --num_workers 16 --tasks 4 --save_name pretrained
+```
+
+- For single GPU training, use smaller batch size and simply remove ` -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 ` 
 
 ## References
 

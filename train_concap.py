@@ -16,7 +16,6 @@ from tqdm import tqdm, trange
 import torch
 from torch.utils.data import DataLoader, Dataset, RandomSampler
 from torch.utils.data.distributed import DistributedSampler
-# from parallel.data_parallel import DataParallel
 from tensorboardX import SummaryWriter
 
 from pytorch_pretrained_bert.tokenization import BertTokenizer
