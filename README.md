@@ -71,7 +71,7 @@ python eval_retrieval.py --bert_model bert-base-uncased --from_pretrained save/R
 2: To test on held out validation split, use the following command: 
 
 ```
-
+python eval_tasks.py --bert_model bert-base-uncased --from_pretrained save/VQA_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 0 --split minval
 ```
 
 ### VCR
@@ -81,13 +81,13 @@ python eval_retrieval.py --bert_model bert-base-uncased --from_pretrained save/R
 2: To test on VCR Q->A
 
 ```
-
+python eval_tasks.py --bert_model bert-base-uncased --from_pretrained save/VCR_Q-A-VCR_QA-R_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 1 --split val
 ```
 
 3: To test on VCR QA->R
 
 ```
-
+python eval_tasks.py --bert_model bert-base-uncased --from_pretrained save/VCR_Q-A-VCR_QA-R_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 2 --split val
 ```
 
 ### RefCOCO+

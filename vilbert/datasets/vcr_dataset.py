@@ -122,6 +122,9 @@ class VCRDataset(Dataset):
                 if row[1] != 'name':
                     self._names.append(row[1])
 
+        if not os.path.exists(os.path.join(dataroot, "cache")):
+            os.makedirs(os.path.join(dataroot, "cache"))
+
         # cache file path data/cache/train_ques
         cache_path = "data/VCR/cache/" + split + '_' + task + "_" + str(max_seq_length) + "_" + str(max_region_num) + "_vcr.pkl"
         if not os.path.exists(cache_path):
