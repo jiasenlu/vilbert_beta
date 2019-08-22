@@ -11,7 +11,7 @@ Code and pre-trained models for **[ViLBERT: Pretraining Task-Agnostic Visiolingu
 ```text
 conda create -n vilbert python=3.6
 conda activate vilbert
-git clone https://github.com/jiasenlu/vilbert_v0.1
+git clone https://github.com/jiasenlu/vilbert_beta
 cd vilbert_beta
 pip install -r requirements.txt
 ```
