@@ -119,7 +119,7 @@ python -m torch.distributed.launch --nproc_per_node=8 --nnodes=1 --node_rank=0 t
 ig_file config/bert_base_6layer_6conect.json --learning_rate 1e-4 --train_batch_size 512 --save_name pretrained
 ```
 
-## Training Down-Stream Tasks
+### Train ViLBERT for DownStream Tasks
 
 ### VQA 
 
