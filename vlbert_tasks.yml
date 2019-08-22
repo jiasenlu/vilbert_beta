@@ -56,10 +56,10 @@ TASK3:
   loss: CrossEntropyLoss
   task_id: 9
   dataroot: data/flickr30k
-  features_h5path1: data/flickr30k/flickr30k_resnet101_faster_rcnn_genome.lmdb
+  features_h5path1: data/flickr30k/flickr30k_test_resnet101_faster_rcnn_genome.lmdb
   features_h5path2: ''
   train_annotations_jsonpath: data/flickr30k/all_data_final_train_2014.jsonline
-  val_annotations_jsonpath: data/flickr30k/all_data_final_val_set0_2014.jsonline
+  val_annotations_jsonpath: data/flickr30k/all_data_final_test_set0_2014.jsonline
   max_seq_length: 30
   max_region_num: 100
   batch_size: 64

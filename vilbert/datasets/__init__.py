@@ -8,7 +8,7 @@ from .vcr_dataset import VCRDataset
 
 # from .flickr_retreival_dataset import FlickrRetreivalDatasetTrain, FlickrRetreivalDatasetVal
 
-__all__ = ["FoilClassificationDataset", \
+__all__ = [
 		   "VQAClassificationDataset", \
 		   "ConceptCapLoaderTrain", \
 		   "ConceptCapLoaderVal", \
@@ -18,19 +18,18 @@ __all__ = ["FoilClassificationDataset", \
 		   "VCRDataset", \
 		   "ConceptCapLoaderRetrieval"]
 
-DatasetMapTrain = {'TASK0': ConceptCapLoaderTrain,
-				   'TASK1': VQAClassificationDataset,
-				   'TASK2': VCRDataset,
-				   'TASK3': VCRDataset,				   
-				   'TASK4': RetreivalDataset,
-				   'TASK5': ReferExpressionDataset,
+DatasetMapTrain = {
+				   'TASK0': VQAClassificationDataset,
+				   'TASK1': VCRDataset,
+				   'TASK2': VCRDataset,				   
+				   'TASK3': RetreivalDataset,
+				   'TASK4': ReferExpressionDataset,
 				   }		
 
-
-DatasetMapEval = {'TASK0': ConceptCapLoaderVal,
-				 'TASK1': VQAClassificationDataset,
-				 'TASK2': VCRDataset,
-				 'TASK3': VCRDataset,				   
-				 'TASK4': RetreivalDatasetVal,
-				 'TASK5': ReferExpressionDataset,			   
+DatasetMapEval = {
+				 'TASK0': VQAClassificationDataset,
+				 'TASK1': VCRDataset,
+				 'TASK2': VCRDataset,				   
+				 'TASK3': RetreivalDatasetVal,
+				 'TASK4': ReferExpressionDataset,			   
 				}

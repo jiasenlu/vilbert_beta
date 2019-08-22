@@ -88,7 +88,7 @@ def main():
         "Positive power of 2: static loss scaling value.\n",
     )
     parser.add_argument(
-        "--num_workers", type=int, default=16, help="Number of workers in the dataloader."
+        "--num_workers", type=int, default=10, help="Number of workers in the dataloader."
     )
     parser.add_argument(
         "--save_name",
@@ -97,10 +97,7 @@ def main():
         help="save name for training.", 
     )
     parser.add_argument(
-        "--use_chunk", default=0, type=float, help="whether use chunck for parallel training."
-    )
-    parser.add_argument(
-        "--batch_size", default=1024, type=int, help="what is the batch size?"
+        "--batch_size", default=1000, type=int, help="what is the batch size?"
     )
     parser.add_argument(
         "--tasks", default='', type=str, help="1-2-3... training task separate by -"
@@ -117,7 +114,7 @@ def main():
 
     args = parser.parse_args()
     with open('vlbert_tasks.yml', 'r') as f:
-        task_cfg = edict(yaml.load(f))
+        task_cfg = edict(yaml.safe_load(f))
 
     random.seed(args.seed)
     np.random.seed(args.seed)
@@ -150,7 +147,6 @@ def main():
         torch.cuda.set_device(args.local_rank)
         device = torch.device("cuda", args.local_rank)
         n_gpu = 1
-        # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
         torch.distributed.init_process_group(backend="nccl")
     
     logger.info(
@@ -202,12 +198,10 @@ def main():
 
     no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
 
-    print("***** Running training *****")
     print("  Num Iters: ", task_num_iters)
     print("  Batch size: ", task_batch_size)    
 
     model.eval()
-    # when run evaluate, we run each task sequentially. 
     for task_id in task_ids:
         results = []
         others = []
