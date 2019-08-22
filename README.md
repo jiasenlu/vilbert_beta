@@ -2,9 +2,7 @@
 
 Code and pre-trained models for **ViLBERT: Pretraining Task-Agnostic VisiolinguisticRepresentations for Vision-and-Language Tasks**.
 
-
-
-*Note: This is beta release which * 
+*Note: This code base is still in beta release.* 
 
 
 ## Repository Setup
@@ -25,12 +23,6 @@ conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 ```
 
 3. Install apx, follows https://github.com/NVIDIA/apex
-
-4. Install this codebase as a package in this environment.
-```text
-python setup.py develop
-```
-
 ## Data Setup
 
 Check `README.md` under `data` for more details.  
