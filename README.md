@@ -12,7 +12,7 @@ Code and pre-trained models for **[ViLBERT: Pretraining Task-Agnostic Visiolingu
 conda create -n vilbert python=3.6
 conda activate vilbert
 git clone https://github.com/jiasenlu/vilbert_v0.1
-cd vilbert_v0.1
+cd vilbert_beta
 pip install -r requirements.txt
 ```
 
@@ -22,6 +22,13 @@ conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 ```
 
 3. Install apx, follows https://github.com/NVIDIA/apex
+
+4. compile tools
+
+```
+cd tool/refer
+make
+```
 ## Data Setup
 
 Check `README.md` under `data` for more details.  Check  `vlbert_tasks.yml` for more details. 
