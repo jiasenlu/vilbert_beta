@@ -55,10 +55,4 @@ You can directly download the feature and test the pre-trained model.
 ### Meta Data
 We also provide the Meta data for ViLBERT, you can download them and run the code more eailiy. 
 
-|Task|                             Link                             |
-| :-------------: | :---------------------------------------------: |
-|       VQA       | |
-|       VCR       | |
-|    RefCOCO+     | |
-| Flickr30k | |
-
+[Google drive](https://drive.google.com/drive/folders/1o7sCLl1_PKCoaGvigCr_uGuBg6koOJm8?usp=sharing)
