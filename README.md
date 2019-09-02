@@ -26,7 +26,7 @@ conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 4. compile tools
 
 ```
-cd tool/refer
+cd tools/refer
 make
 ```
 ## Data Setup
