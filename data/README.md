@@ -48,7 +48,7 @@ You can directly download the feature and test the pre-trained model. (Thanks Ji
 |Task    |                             Link                             |
 | :-------------: | :----------------------------------------------------------: |
 |       COCO       |  [Dropbox](https://www.dropbox.com/sh/09182lupkagw1ov/AACShSEVClAh6CzbhyIKxmtga?dl=0)|
-|       VCR       | [Dropbox](https://www.dropbox.com/sh/09182lupkagw1ov/AACShSEVClAh6CzbhyIKxmtga?dl=0) |
+|       VCR       | [Dropbox](https://www.dropbox.com/sh/9pgxc3njd3iq03o/AADXgnT1HmEdrds7aujTncBGa?dl=0) |
 |    RefCOCO+     | [Dropbox](https://www.dropbox.com/sh/4jqadcfkai68yoe/AADHI6dKviFcraeCMdjiaDENa?dl=0)|
 | Flickr30k | [Dropbox](https://www.dropbox.com/sh/qqk1xlhkqjyek8q/AAADni5hVBV2PAC8R_13xpIja?dl=0)|
 
