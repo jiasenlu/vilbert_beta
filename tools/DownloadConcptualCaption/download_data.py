@@ -127,7 +127,7 @@ images_per_part = 100
 
 data_name = "validation"
 df = open_tsv("Validation_GCC-1.1.0-Validation.tsv", data_name)
-# df_multiprocess(df=df, processes=num_processes, chunk_size=images_per_part, func=download_image, dataset_name=data_name)
+df_multiprocess(df=df, processes=num_processes, chunk_size=images_per_part, func=download_image, dataset_name=data_name)
 df = df_from_shelve(chunk_size=images_per_part, func=download_image, dataset_name=data_name)
 df.to_csv("downloaded_%s_report.tsv.gz" % data_name, compression='gzip', sep='\t', header=False, index=False)
 print("Saved.")
