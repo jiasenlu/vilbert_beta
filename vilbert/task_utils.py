@@ -341,7 +341,7 @@ def EvaluatingModel(args, task_cfg, device, task_id, batch, model, task_dataload
     features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id = batch
     batch_size = features.size(0)
 
-    if task_id in ['TASK0', 'TASK1', 'TASK2']:
+    if task_id in [ 'TASK1', 'TASK2']:
         max_num_bbox = features.size(1)
         num_options = question.size(1)
         features = features.unsqueeze(1).expand(batch_size, num_options, max_num_bbox, 2048).contiguous().view(-1, max_num_bbox, 2048)
@@ -369,12 +369,17 @@ def EvaluatingModel(args, task_cfg, device, task_id, batch, model, task_dataload
             = model(question, features, spatials, segment_ids, input_mask, image_mask, co_attention_mask)
 
     if task_cfg[task_id]['type'] == 'VL-classifier':
+        
+        loss = task_losses[task_id](vil_prediction, target)
+        loss = loss.mean() * target.size(1)
+        batch_score = compute_score_with_logits(vil_prediction, target).sum()
+
         logits = torch.max(vil_prediction, 1)[1].data  # argmax
         sorted_score, sorted_idx = torch.sort(-vil_prediction) 
         topk = 8 # top candidate.
         topkInd = sorted_idx[:,:topk]
-        loss = 0
-        batch_score = 0
+        #loss = 0
+        #atch_score = 0
         for i in range(logits.size(0)):
             results.append({'question_id':question_id[i].item(), \
                     'answer':task_dataloader[task_id].dataset.label2ans[logits[i].item()]})
